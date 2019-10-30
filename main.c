@@ -193,7 +193,7 @@ int main() {
                 end=0;
                 t++;
                 break;
-                //endd
+                //end
             }
 
 
