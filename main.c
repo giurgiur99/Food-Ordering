@@ -9,10 +9,11 @@
 #define MAX_CUTLERY_NAME 30
 
 int main() {
-    char user[50], pass[50];
-    int noOfFoodTypes = 3, foodChoice, modelChoice, drinkChoice, noOfDrinks = 5, drinksPrices[] = {5, 5, 5, 4}, noOfModels[] = {3, 2, 4}, cutlery = 2, cutleryChoice;
     int t = 0;
     int stop = 0;
+    char user[50], pass[50];
+    int noOfFoodTypes = 3,drinkChoice, noOfDrinks = 5, drinksPrices[] = {5, 5, 5, 4}, noOfModels[] = {3, 2, 4};
+    int foodChoice, modelChoice, cutlery = 2, cutleryChoice;
     char foodName[][30] = {"Pizza", "Pasta", "Salad"};
     char food[3][4][MAX_MODEL_NAME] = {
             {"Pizza Carbonara", "Pizza Diavola", "Pizza Margherita"},
