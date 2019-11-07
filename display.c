@@ -11,7 +11,7 @@
 
 void foodOrderDisplay(int noOfFoodTypes, char foodTypes[][MAX_FOOD_NAME]) {
     printf("Please choose the food you feel like eating today: \n");
-    for (int i=0; i<noOfFoodTypes; i++) {
+    for (int i = 0; i < noOfFoodTypes; i++) {
         putchar('a' + i);
         printf(") %s \n", foodTypes[i]);
     }
@@ -20,7 +20,7 @@ void foodOrderDisplay(int noOfFoodTypes, char foodTypes[][MAX_FOOD_NAME]) {
 
 void drinkDisplay(int noOfDrinks, char foodTypes[], char drinks[][MAX_DRINK_NAME], int priceDr[]) {
     printf("Please choose a drink to go with your %s \n", foodTypes);
-    for (int i=0; i<noOfDrinks-1; i++) {
+    for (int i = 0; i < noOfDrinks - 1; i++) {
         putchar('a' + i);
         printf(") %s: %d \n", drinks[i], priceDr[i]);
     }
@@ -28,9 +28,9 @@ void drinkDisplay(int noOfDrinks, char foodTypes[], char drinks[][MAX_DRINK_NAME
     printf("%c) Go Back \n", 'a' + noOfDrinks);
 }
 
-void cutDisplay(int cutlery, char cut[][MAX_CUTLERY_NAME]) {
+void cutleryDisplay(int cutlery, char cut[][MAX_CUTLERY_NAME]) {
     printf("Do you want cutlery? \n");
-    for (int i=0; i < cutlery; i++) {
+    for (int i = 0; i < cutlery; i++) {
         putchar('a' + i);
         printf(") %s \n", cut[i]);
     }
@@ -39,7 +39,7 @@ void cutDisplay(int cutlery, char cut[][MAX_CUTLERY_NAME]) {
 
 void foodModelDisplay(int noOfDishes, char foodTypes[], char food[][MAX_SPECIFIC_FOOD_NAME], int prices[]) {
     printf("Please choose the type of %s \n", foodTypes);
-    for (int i=0; i<noOfDishes; i++) {
+    for (int i = 0; i < noOfDishes; i++) {
         putchar('a' + i);
         printf(") %s: %d \n", food[i], prices[i]);
     }

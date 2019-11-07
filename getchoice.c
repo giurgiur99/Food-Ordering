@@ -18,7 +18,7 @@ int getChoice(int noOfChoices, int *t) {
     return choiceIndex;
 }
 
-int getFinal(int *state, char username[]) {
+int getFinalIndex(int *state, char username[]) {
     int ok;
     printf("a) Confirm order \n");
     printf("b) Go back \n");
