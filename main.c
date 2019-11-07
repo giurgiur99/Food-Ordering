@@ -24,7 +24,7 @@ int main() {
                         {23, 21},
                         {23, 22, 19, 21}};
 
-    char cut[][MAX_CUTLERY_NAME] = {"Yes!", "No, thanks!"}, add[50];
+    char cut[][MAX_CUTLERY_NAME] = {"Yes!", "No, thanks!"}, add[50] ;
     char drinks[][MAX_DRINK_NAME] = {"Coca-Cola", "Fanta", "Lipton", "Water", "No, thanks!"};
     while (!stop) {
         switch (state) {
