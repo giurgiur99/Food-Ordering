@@ -28,12 +28,6 @@ int main() {
     strcpy(drink[2].name,"Lipton");drink[2].pret=5;
     strcpy(drink[3].name,"Water");drink[3].pret=4;
 
-    printf("--- Please enter your username\n");
-    gets(na);
-    printf("--- Please enter your password\n");
-    gets(pass);
-
-
     food[0].nr=3;
     food[1].nr=2;
     food[2].nr=4;
@@ -53,15 +47,20 @@ int main() {
     strcpy(food[2].model[2].tip,"Greek Salad");food[2].model[2].pret=19;
     strcpy(food[2].model[3].tip,"Cobb");food[2].model[3].pret=21;
 
-    /*printf("\n \n");
-    for(int i=0;i<3;i++,printf("-- %s \n",food[i].name))
-        for(int j=0;j<4;j++)
-            printf("%s %d \n",food[i].model[j].tip,food[i].model[j].pret);*/
-
     int t=0,choice=0,foodChoice=0,modelChoice=0,end=1,cutlery=0;
+    t=10;
     while(end!=0)
     {
         switch(t) {
+            case 10:
+            {
+                printf("--- Please enter your username\n");
+                gets(na);
+                printf("--- Please enter your password\n");
+                gets(pass);
+                t=0;
+            }
+
             case 0: {
                 printf("Please choose what you would like to order. \n");
                 for (int i = 0; i < 3; i++) {
@@ -73,13 +72,13 @@ int main() {
                 getchar();
                 if (choice == 'a' + 3) {
                     printf("There is no menu to go back to. \n");
+                    t=10;
                     break;
                 }
                 foodChoice = choice - 'a';
                 t++;
                 break;
             }
-
             case 1: {
                 printf("What kind of %s would you like to have. \n", food[foodChoice].name);
                 for (int i = 0; i < food[foodChoice].nr; i++) {
@@ -99,8 +98,8 @@ int main() {
                 break;
 
             }
-
             case 2: {
+                for(int i=0;i<nrDrinks;i++) selectedDrinks[i]=0;
                 printf("Would you like to have something to drink with your %s. \n", food[foodChoice].name);
                 for (int i = 0; i < nrDrinks; i++) {
                     putchar('a' + i);
@@ -182,12 +181,11 @@ int main() {
                 if (choice == 'a')
                     t++;
                 else {
-                    t--;
+                    t=t-2;
                     break;
                 }
                 break;
             }
-
             case 7:
             {
                 printf("Order confirmed! Thank you for buying from us, %s.",na);
@@ -197,14 +195,7 @@ int main() {
                 //end
             }
 
-
         }
     }
-
-
-
-
-
-
     return 0;
 }
