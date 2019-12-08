@@ -1,31 +1,32 @@
-//
-// Created by TheRa on 11/7/2019.
-//
-
 #include <stdio.h>
+#include "display.h"
+#include <string.h>
+#define MAX_CUTLERY_NAME 20
 
-#define MAX_FOOD_NAME 30
-#define MAX_SPECIFIC_FOOD_NAME 20
-#define MAX_DRINK_NAME 30
-#define MAX_CUTLERY_NAME 30
-
-void foodOrderDisplay(int noOfFoodTypes, char foodTypes[][MAX_FOOD_NAME]) {
-    printf("Please choose the food you feel like eating today: \n");
-    for (int i = 0; i < noOfFoodTypes; i++) {
+void foodOrderDsiplay(int nrOfFoodTypes, char ** foodTypes){
+    printf("Please choose the food you feel like eating today:\n");
+    for(int i=0; i<nrOfFoodTypes; i++) {
         putchar('a' + i);
-        printf(") %s \n", foodTypes[i]);
+        printf(") %s\n", foodTypes[i]);
     }
-    printf("%c) Go Back \n", 'a' + noOfFoodTypes);
+    printf("%c) Go back.\n",'a'+nrOfFoodTypes);
 }
-
-void drinkDisplay(int noOfDrinks, char foodTypes[], char drinks[][MAX_DRINK_NAME], int priceDr[]) {
-    printf("Please choose a drink to go with your %s \n", foodTypes);
-    for (int i = 0; i < noOfDrinks - 1; i++) {
-        putchar('a' + i);
-        printf(") %s: %d \n", drinks[i], priceDr[i]);
+void foodModelDisplay(int nrSpecType, char * foodType, char ** specTypes, double * prices){
+    printf("Please choose the type of %s:\n",foodType);
+    for(int i=0; i<nrSpecType; i++){
+        putchar('a'+i);
+        printf(") %s: %.2lf\n",specTypes[i],prices[i]);
     }
-    printf("%c) %s \n", 'a' + noOfDrinks - 1, drinks[4]);
-    printf("%c) Go Back \n", 'a' + noOfDrinks);
+    printf("%c) Go back.\n",'a'+nrSpecType);
+}
+void displayDrinks(char * foodType,int nrDrinks,char ** drinks,
+                   double * pricesDrinks){
+    printf("Please choose a drink to go with your %s:\n",foodType);
+    for(int i=0; i<nrDrinks; i++){
+        putchar('a'+i);
+        printf(") %s: %.2lf\n",drinks[i],pricesDrinks[i]);
+    }
+    printf("%c) Go back.\n",'a'+nrDrinks);
 }
 
 void cutleryDisplay(int cutlery, char cut[][MAX_CUTLERY_NAME]) {
@@ -37,11 +38,27 @@ void cutleryDisplay(int cutlery, char cut[][MAX_CUTLERY_NAME]) {
     printf("%c) Go Back \n", 'a' + cutlery);
 }
 
-void foodModelDisplay(int noOfDishes, char foodTypes[], char food[][MAX_SPECIFIC_FOOD_NAME], int prices[]) {
-    printf("Please choose the type of %s \n", foodTypes);
-    for (int i = 0; i < noOfDishes; i++) {
-        putchar('a' + i);
-        printf(") %s: %d \n", food[i], prices[i]);
-    }
-    printf("%c) Go Back \n", 'a' + noOfDishes);
+void getAdditionalInfo(char *addinfo, int *state){
+    //add info
+    printf("Any additional info?\n");
+    gets(addinfo);
+    (*state)++;
 }
+void displayOrder(char * specType,double price,char * drink,double priceDrink,
+                  char cutlery[],char addinfo[],char username[]){
+    printf("This is your order:\n"
+           "-------------------\n");
+    printf("Name:%s\n",username);
+    printf("Food Items:\n---%s: %.2lf\n---%s: %.2lf\n",specType,
+           price,drink,priceDrink);
+    printf("Cutlery: %s\n",cutlery);
+    if(strcmp(addinfo,"\0") != 0){
+        printf("Additional info: %s\n",addinfo);
+    }
+    printf("Payment amount: %.2lf\n",price+priceDrink);
+    printf("-------------------\n"
+           "a) Confirm order\n"
+           "b) Go back\n");
+}
+
+
