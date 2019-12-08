@@ -1,8 +1,7 @@
-//
-// Created by TheRa on 11/7/2019.
-//
+#ifndef FOOD_ORDERING_GETCHOICE_H
+#define FOOD_ORDERING_GETCHOICE_H
 
-#ifndef HM_GETCHOICE_H
-#define HM_GETCHOICE_H
+int getChoice(int nrOfChoices, int *state);
+void confirmOrder(int confirmChoice,int *order,int *state);
 
-#endif //HM_GETCHOICE_H
+#endif //FOOD_ORDERING_GETCHOICE_H

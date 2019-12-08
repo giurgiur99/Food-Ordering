@@ -1,23 +1,140 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "getchoice.h"
 #include "users.h"
 #include "display.h"
 
-#define MAX_FOOD_NAME 30
-#define MAX_MODEL_NAME 20
-#define MAX_DRINK_NAME 30
-#define MAX_CUTLERY_NAME 30
-
-void getAdditionalInfo(char add[], int *state);
+#define LOAD_DATA "Please load the data :"
+#define MAX_FOOD_NAME 100
+#define MAX_MODEL_SPEC_NAME 300
+#define MAX_MODEL_NAME 100
+#define MAX_DRINK_NAME 50
+#define MAX_CUTLERY_NAME 50
 
 int main() {
-    printf(""Hello");"
+    char string[500],firstLine[20],add[50],*point;
+
+    int nrOfFoodTypes,nrDrinks,noOfModels[MAX_MODEL_NAME],k;
+    printf("%s \n",LOAD_DATA);
+    gets(firstLine);
+    sscanf(firstLine, "%d", &nrOfFoodTypes);
+
+    char ** foodName = (char**)malloc(nrOfFoodTypes * sizeof(char*));
+    char *** food = (char***)malloc(nrOfFoodTypes * sizeof(char**));
+    double ** prices = (double**)malloc(nrOfFoodTypes * sizeof(double*));
+
+    for(int i=0;i<nrOfFoodTypes;i++) {
+        foodName[i] = (char*)malloc(MAX_FOOD_NAME * sizeof(char));
+        food[i] = (char**)malloc(MAX_MODEL_NAME * sizeof(char*));
+        prices[i] = (double*)malloc(MAX_MODEL_NAME * sizeof(double));
+
+        gets(string);
+        point = strtok(string, ":");
+        strcpy(foodName[i], point);
+        foodName[i][strlen(foodName[i])-2]='\0';
+        point = strtok(NULL, "(");
+        k = 0;
+
+        while (point) {
+            point = strtok(NULL, "-");
+            food[i][k] = (char*)malloc(MAX_MODEL_SPEC_NAME * sizeof(char));
+            strcpy(food[i][k], point);
+            food[i][k][strlen(point) - 1]='\0';
+            point = strtok(NULL, ")");
+            sscanf(point, "%lf", &prices[i][k]);
+            point = strtok(NULL, "(");
+            k++;
+        }
+        noOfModels[i]=k;
     }
+
+    gets(firstLine);
+    sscanf(firstLine, "%d", &nrDrinks);
+    char ** drinks = (char**)malloc(nrDrinks * sizeof(char*));
+    double * drinkPrices = (double*)malloc(nrDrinks * sizeof(double));
+
+    gets(string);
+    strrev(string);
+    point = strtok(string, "-");
+
+    for(int i=0;i<nrDrinks;i++){
+        if(i)
+            point = strtok(NULL, "-");
+        sscanf(strrev(point), "%lf", &drinkPrices[i]);
+        drinks[i] = (char*)malloc(MAX_DRINK_NAME * sizeof(char));
+        point = strtok(NULL, "(");
+        strcpy(drinks[i], point);
+        strrev(drinks[i]);
+    }
+
+    char cut[][MAX_CUTLERY_NAME] = {"Yes!", "No thanks!"};
+    char username[50];
+    char password[50];
+    int foodChoice, modelChoice, drinkChoice, cutleryChoice, confirmChoice;
+    int state=0, stop=0,okcut=0,cutlery=2;
+
+    while(!stop) {
+        switch(state) {
+            case 0: {
+                printf("Welcome to Food Thingies!\n");
+                userInput(username, password);
+                state++;
+                break;
+            }
+            case 1: {
+                foodOrderDsiplay(nrOfFoodTypes, foodName);
+                foodChoice = getChoice(nrOfFoodTypes, &state);
+                break;
+            }
+            case 2: {
+                foodModelDisplay(noOfModels[foodChoice], foodName[foodChoice], food[foodChoice],
+                                 prices[foodChoice]);
+                modelChoice = getChoice(noOfModels[foodChoice], &state);
+                break;
+            }
+            case 3: {
+                displayDrinks(foodName[foodChoice], nrDrinks, drinks, drinkPrices);
+                drinkChoice = getChoice(nrDrinks, &state);
+                break;
+            }
+            case 4: {
+                cutleryDisplay(cutlery, cut);
+                cutleryChoice = getChoice(cutlery, &state);
+                break;
+            }
+            case 5: {
+                getAdditionalInfo(add, &state);
+                break;
+            }
+            case 6: {
+                displayOrder(food[foodChoice][modelChoice], prices[foodChoice][modelChoice],
+                             drinks[drinkChoice], drinkPrices[drinkChoice], cut[cutleryChoice], add, username);
+                confirmChoice = getChoice(1, &state);
+                confirmOrder(confirmChoice, &stop, &state);
+                break;
+            }
+        }
+    }
+
+    printf("Order confirmed! Thank you for buying from us, %s!\n", username);
+    for(int i=0;i<nrOfFoodTypes;i++){
+        for(int j=0; j <= noOfModels[i]; j++)
+            free(food[i][j]);
+
+        free(foodName[i]);
+        free(prices[i]);
+        free(food[i]);
+    }
+    free(foodName);
+    free(food);
+    free(prices);
+
+    for(int i=0;i<nrDrinks;i++)
+        free(drinks[i]);
+
+    free(drinkPrices);
+    free(drinks);
+
     return 0;
-
-
-void getAdditionalInfo(char add[], int *state) {
-    printf("Any additional info? \n");
-    gets(add);
-    (*state)++;
 }

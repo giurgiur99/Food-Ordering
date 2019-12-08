@@ -1,35 +1,22 @@
-//
-// Created by TheRa on 11/7/2019.
-//
-
 #include <stdio.h>
 
-int getChoice(int noOfChoices, int *t) {
+int getChoice(int nrOfChoices, int *state){
     int choiceIndex;
     char choice = getchar();
     getchar();
-    if (choice == 'a' + noOfChoices) {
-        (*t)--;
-    }
-    else {
+    if(choice == 'a'+nrOfChoices){
         choiceIndex = choice - 'a';
-        (*t)++;
+        (*state)--;
+    } else {
+        choiceIndex = choice - 'a';
+        (*state)++;
     }
     return choiceIndex;
 }
-
-int getFinalIndex(int *state, char username[]) {
-    int ok;
-    printf("a) Confirm order \n");
-    printf("b) Go back \n");
-    char choice = getchar();
-    if (choice == 'a') {
-        ok = 1;
-        printf("Order confirmed! Thank you for buying from us, %s! \n", username);
+void confirmOrder(int confirmChoice,int *order,int *state){
+    if(confirmChoice == 0){
+        (*order) = 1;
+    } else {
+        (*state)--;
     }
-    else {
-        (*state)-=2;
-    }
-    getchar();
-    return ok;
 }
