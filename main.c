@@ -116,7 +116,7 @@ int main() {
             }
         }
     }
-
+    //
     printf("Order confirmed! Thank you for buying from us, %s!\n", username);
     for(int i=0;i<nrOfFoodTypes;i++){
         for(int j=0; j <= noOfModels[i]; j++)
