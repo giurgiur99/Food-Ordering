@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int getChoice(int nrOfChoices, int *state){
+int getChoice(int nrOfChoices, int *state,FILE *foodOrderFile){
     int choiceIndex;
     char choice = getchar();
     getchar();

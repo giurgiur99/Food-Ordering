@@ -7,7 +7,7 @@
 #include "users.h"
 #define MIN_PASSWORD_LENGTH 7
 
-void userInput(char *user, char *pass){
+void userInput(char *user, char *pass,FILE *foodOrderFile){
     int signInOrUp=0,state=0;
     char choice;
     char    ERROR_PASSWORD_LONG[] = "The password must be at least 7 chars long";
