@@ -8,3 +8,4 @@
 void userInput(char *user, char *pass,FILE *foodOrderFile);
 
 #endif //HM_USERS_H
+//

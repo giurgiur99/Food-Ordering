@@ -11,6 +11,7 @@
 #define MAX_MODEL_NAME 100
 #define MAX_DRINK_NAME 50
 #define MAX_CUTLERY_NAME 50
+
 #define MAX_LINE 100
 #define FILE_PATH "E:/bag/in.txt"
 
@@ -81,7 +82,7 @@ int main() {
         strcpy(drinks[i], point);
         strrev(drinks[i]);
     }
-
+  
     char cut[][MAX_CUTLERY_NAME] = {"Yes!", "No thanks!"};
     char username[50];
     char password[50];
@@ -130,7 +131,7 @@ int main() {
             }
         }
     }
-    //
+  
     printf("Order confirmed! Thank you for buying from us, %s!\n", username);
     for(int i=0;i<nrOfFoodTypes;i++){
         for(int j=0; j <= noOfModels[i]; j++)
