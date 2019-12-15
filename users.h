@@ -5,5 +5,7 @@
 #ifndef HM_USERS_H
 #define HM_USERS_H
 
+void userInput(char *user, char *pass,FILE *foodOrderFile);
+
 #endif //HM_USERS_H
 //
