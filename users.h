@@ -5,6 +5,15 @@
 #ifndef HM_USERS_H
 #define HM_USERS_H
 
-void userInput(char *user, char *pass,FILE *foodOrderFile);
+#include <stdio.h>
+
+typedef struct _buyer {
+    char * name;
+    char * password;
+} buyer;
+
+
+void userInput(buyer *b,FILE *foodOrderFile);
+buyer createBuyer();
 
 #endif //HM_USERS_H

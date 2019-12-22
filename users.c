@@ -4,10 +4,20 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "users.h"
 #define MIN_PASSWORD_LENGTH 7
+#define MAX_PASSWD_LEN 20
+#define MAX_BUYER_NAME 20
 
-void userInput(char *user, char *pass,FILE *foodOrderFile){
+buyer createBuyer(){
+    buyer b;
+    b.name = (char*)malloc(MAX_BUYER_NAME* sizeof(char));
+    b.password = (char*)malloc(MAX_PASSWD_LEN* sizeof(char));
+    return b;
+}
+
+void userInput(buyer *b,FILE *foodOrderFile){
     int signInOrUp=0,state=0;
     char choice;
     char    ERROR_PASSWORD_LONG[] = "The password must be at least 7 chars long";
@@ -33,13 +43,13 @@ void userInput(char *user, char *pass,FILE *foodOrderFile){
                 break;
             }
             case 1: {
-                if(choice == 'a')signinIn(user, pass, &signInOrUp, &state, SIGNING_IN, INCORRECT_PASSWORD, USER_NOT_FOUND);
+                if(choice == 'a')signinIn(&b, &signInOrUp, &state, SIGNING_IN, INCORRECT_PASSWORD, USER_NOT_FOUND);
                 else state++;
                 break;
             }
             case 2: {
 
-                signinUp(user, pass, &signInOrUp, SIGNING_UP, DUPLICATE_USER, ERROR_PASSWORD_LONG,ERROR_PASSWORD_NOT_USERNAME, ERROR_PASSWORD_SPECIAL_CHAR, ERROR_PASSWORD_DIGITS);
+                signinUp(&b, &signInOrUp, SIGNING_UP, DUPLICATE_USER, ERROR_PASSWORD_LONG,ERROR_PASSWORD_NOT_USERNAME, ERROR_PASSWORD_SPECIAL_CHAR, ERROR_PASSWORD_DIGITS);
                 break;
             }
         }
@@ -87,28 +97,28 @@ int passAndDigit(char *password){
     }
     return 0;
 }
-void signinIn(char user[], char password[], int * sign_in, int *state, char message[], char err[], char err_user[]){
+void signinIn(buyer *b, int * sign_in, int *state, char message[], char err[], char err_user[]){
     printf("---%s\n""---Username\n",message);
-    gets(user);
+    gets(b->name);
     printf("---Password\n");
-    gets(password);
-    if(usernameOk(user) && passwordOk(password))(*sign_in)=1;
-    if(usernameOk(user) && !passwordOk(password))printf("%s\n", err);
-    if(!usernameOk(user)){
+    gets(b->password);
+    if(usernameOk(b->name) && passwordOk(b->password)) (*sign_in)=1;
+    if(usernameOk(b->name) && !passwordOk(b->password)) printf("%s\n", err);
+    if(!usernameOk(b->name)){
         printf("%s\n",err_user);
         (*state)--;
     }
 }
-void signinUp(char username[], char password[], int * sign_up, char message[], char err[], char err_length[],char err_pass_not_username[], char err_special_char[], char err_digits[]){
+void signinUp(buyer *b, int * sign_up, char message[], char err[], char err_length[],char err_pass_not_username[], char err_special_char[], char err_digits[]){
 
     printf("%s\n""---Username\n",message);
-    gets(username);
-    if(!usernameSignUpOk(username))printf("%s\n", err);
+    gets(b->name);
+    if(!usernameSignUpOk(b->name))printf("%s\n", err);
     else {
         printf("---Password\n");
-        gets(password);
-        if(passwordSignUpOk(&length, password, err_length) && pass_diff_username(password,username,err_pass_not_username) && passwordSignUpOk(
-                &specialChar, password, err_special_char) && passwordSignUpOk(&passAndDigit, password, err_digits) )
+        gets(b->password);
+        if(passwordSignUpOk(&length, b->password, err_length) && pass_diff_username(b->password,b->name,err_pass_not_username) && passwordSignUpOk(
+                &specialChar, b->password, err_special_char) && passwordSignUpOk(&passAndDigit, b->password, err_digits) )
             (*sign_up)=1;
     }
 }
