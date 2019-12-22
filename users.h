@@ -17,3 +17,4 @@ void userInput(buyer *b,FILE *foodOrderFile);
 buyer createBuyer();
 
 #endif //HM_USERS_H
+//
